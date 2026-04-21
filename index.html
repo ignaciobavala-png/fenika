@@ -48,6 +48,10 @@
       transition: width 0.2s, height 0.2s, opacity 0.2s;
     }
     #cursor.big { width: 40px; height: 40px; }
+    @media (hover: none), (max-width: 768px) {
+      #cursor { display: none; }
+      body { cursor: auto; }
+    }
 
     /* ─── Noise overlay ─── */
     .noise::after {
@@ -93,7 +97,7 @@
     nav {
       position: fixed;
       top: 0; width: 100%;
-      z-index: 100;
+      z-index: 300;
       border-bottom: 3px solid var(--outline);
       background: rgba(18,20,20,0.88);
       backdrop-filter: blur(14px);
@@ -157,6 +161,7 @@
       display: flex;
       align-items: center;
       overflow: hidden;
+      box-shadow: inset 0 -60px 60px -40px rgba(0,0,0,0.5);
     }
     .hero-bg-glow {
       position: absolute;
@@ -246,6 +251,9 @@
     .section {
       padding: 100px 40px;
       position: relative;
+      box-shadow:
+        inset 0 60px 60px -40px rgba(0,0,0,0.45),
+        inset 0 -60px 60px -40px rgba(0,0,0,0.45);
     }
     .section-inner {
       max-width: 1200px;
@@ -431,7 +439,7 @@
     .servicio-card:nth-child(3n):hover   { box-shadow: 6px 6px 0 0 #b9c3ff; border-color: #b9c3ff; }
 
     /* ─── METODOLOGÍA ─── */
-    #metodologia { background: #0D2E90; position: relative; overflow: hidden; }
+    #metodologia { background: #0D2E90; position: relative; overflow: hidden; box-shadow: inset 0 60px 60px -40px rgba(0,0,0,0.5), inset 0 -60px 60px -40px rgba(0,0,0,0.5); }
     #metodologia::before {
       content: 'PROCESO';
       position: absolute;
@@ -684,6 +692,7 @@
       background: #C2009A;
       position: relative;
       overflow: hidden;
+      box-shadow: inset 0 60px 60px -40px rgba(0,0,0,0.4), inset 0 -60px 60px -40px rgba(0,0,0,0.4);
     }
     #contacto::before {
       content: 'HABLEMOS';
@@ -794,6 +803,119 @@
       color: rgba(255,255,255,0.4);
     }
 
+    /* ─── HAMBURGER ─── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      z-index: 200;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--text);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ─── MOBILE MENU ─── */
+    .nav-mobile {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(12,12,12,0.97);
+      z-index: 250;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 900;
+      font-size: 36px;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-transform: uppercase;
+      transition: color 0.15s;
+    }
+    .nav-mobile a:hover { color: var(--magenta); }
+    .mobile-close {
+      position: absolute;
+      top: 24px; right: 24px;
+      background: none;
+      border: 2px solid var(--outline);
+      color: var(--text);
+      font-size: 18px;
+      width: 44px; height: 44px;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .mobile-close:hover { border-color: var(--magenta); color: var(--magenta); }
+    .nav-mobile .mobile-cta {
+      margin-top: 16px;
+      background: var(--magenta);
+      color: #fff;
+      padding: 14px 32px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      box-shadow: 4px 4px 0 0 #000;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+      .nav-inner { padding: 0 20px; }
+
+      .section { padding: 64px 20px; }
+
+      #inicio { padding: 110px 20px 64px; }
+
+      .propuesta-left {
+        padding-right: 0;
+        border-right: none;
+        border-bottom: 3px solid var(--outline);
+        padding-bottom: 48px;
+        margin-bottom: 48px;
+      }
+      .propuesta-right { padding-left: 0; }
+
+      .servicios-header { margin-bottom: 40px; }
+      .servicios-sub { max-width: 100%; }
+      .servicio-card[style] { max-width: 100% !important; grid-column: 1 / -1 !important; }
+
+      .met-steps { grid-template-columns: 1fr 1fr; gap: 2px; }
+      .met-step { border-right: none; border-bottom: 2px solid rgba(255,255,255,0.1); }
+      .met-step:last-child { border-bottom: none; }
+
+      .liderazgo-grid { gap: 40px; }
+      .lid-avatar { width: 180px; height: 230px; }
+
+      .contacto-inner { gap: 48px; }
+
+      footer { padding: 32px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
+
+      #liderazgo::before { font-size: 140px; }
+      #metodologia::before { font-size: 100px; }
+    }
+
+    @media (max-width: 480px) {
+      .met-steps { grid-template-columns: 1fr; }
+      .hero-badges { gap: 8px; }
+      .badge { font-size: 10px; padding: 5px 10px; }
+    }
+
     /* ─── Scroll reveal ─── */
     .reveal {
       opacity: 0;
@@ -822,8 +944,21 @@
         <li><a href="#contacto">Contacto</a></li>
       </ul>
       <a href="https://wa.me/5491158689025" target="_blank" rel="noopener noreferrer"><button class="nav-cta">Conversemos</button></a>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="nav-mobile" id="mobileMenu">
+    <button class="mobile-close" onclick="closeMobile()" aria-label="Cerrar menú">✕</button>
+    <a href="#servicios"  onclick="closeMobile()">Servicios</a>
+    <a href="#metodologia" onclick="closeMobile()">Metodología</a>
+    <a href="#liderazgo"  onclick="closeMobile()">Founder</a>
+    <a href="#contacto"   onclick="closeMobile()">Contacto</a>
+    <a href="https://wa.me/5491158689025" target="_blank" rel="noopener noreferrer" class="mobile-cta">Conversemos</a>
+  </div>
 
   <!-- HERO -->
   <section id="inicio" class="noise">
@@ -1121,6 +1256,20 @@
     }, { threshold: 0.12 });
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ─── Hamburger ───
+    const hamburger   = document.getElementById('hamburger');
+    const mobileMenu  = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+      document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    });
+    function closeMobile() {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    }
 
     // ─── Nav active link highlight ───
     const sections = document.querySelectorAll('section[id]');
