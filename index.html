@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fenika Studio — Carta de Presentación</title>
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,400;0,700;0,800;0,900;1,800;1,900&family=Manrope:wght@400;500;700&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Variables ─── */
+    :root {
+      --bg:        #121414;
+      --surface:   #1e2020;
+      --surf-low:  #1a1c1c;
+      --surf-high: #282a2b;
+      --blue:      #001B71;
+      --magenta:   #FF007A;
+      --cyan:      #00dbe9;
+      --text:      #e2e2e2;
+      --text-dim:  #c5c5d3;
+      --outline:   #454651;
+    }
+
+    /* ─── Reset ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Manrope', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      cursor: none;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── Custom cursor ─── */
+    #cursor {
+      position: fixed;
+      width: 20px; height: 20px;
+      border: 2px solid var(--magenta);
+      border-radius: 50%;
+      pointer-events: none;
+      mix-blend-mode: difference;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s, opacity 0.2s;
+    }
+    #cursor.big { width: 40px; height: 40px; }
+
+    /* ─── Noise overlay ─── */
+    .noise::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* ─── Typography helpers ─── */
+    .display {
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 900;
+      line-height: 0.88;
+      letter-spacing: -0.04em;
+    }
+    .headline {
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .magenta { color: var(--magenta); }
+    .cyan    { color: var(--cyan); }
+    .blue-bg { background: var(--blue); }
+
+    /* ─── Hard shadow util ─── */
+    .shadow-mg { box-shadow: 6px 6px 0 0 var(--magenta); }
+    .shadow-cy { box-shadow: 6px 6px 0 0 var(--cyan); }
+    .shadow-wh { box-shadow: 6px 6px 0 0 #fff; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; width: 100%;
+      z-index: 100;
+      border-bottom: 3px solid var(--outline);
+      background: rgba(18,20,20,0.88);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 4px 0 0 var(--magenta);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 900;
+      font-size: 22px;
+      letter-spacing: -0.03em;
+    }
+    .nav-logo span { color: var(--magenta); }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--magenta); }
+    .nav-cta {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--magenta);
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      box-shadow: 3px 3px 0 0 #000;
+      cursor: pointer;
+      transition: transform 0.12s, box-shadow 0.12s;
+    }
+    .nav-cta:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0 0 #000;
+    }
+
+    /* ─── HERO ─── */
+    #inicio {
+      position: relative;
+      min-height: 100vh;
+      padding: 140px 40px 80px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .hero-bg-glow {
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(0,27,113,0.4) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: var(--blue);
+      color: var(--cyan);
+      padding: 6px 14px;
+      margin-bottom: 32px;
+      transform: rotate(-1deg);
+    }
+    .hero-title {
+      font-size: clamp(72px, 10vw, 120px);
+      margin-bottom: 12px;
+    }
+    .hero-title .italic { font-style: italic; color: var(--cyan); }
+    .hero-slash {
+      color: var(--magenta);
+      font-style: normal;
+    }
+    .hero-eslogan {
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 800;
+      font-size: clamp(28px, 4vw, 48px);
+      letter-spacing: -0.02em;
+      color: var(--text-dim);
+      margin-bottom: 32px;
+    }
+    .hero-desc {
+      max-width: 560px;
+      color: var(--text-dim);
+      font-size: 18px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+    }
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 56px;
+    }
+    .badge {
+      border: 2px solid var(--outline);
+      padding: 6px 14px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      transform: rotate(-0.5deg);
+    }
+    .badge.accent {
+      border-color: var(--magenta);
+      color: var(--magenta);
+      transform: rotate(0.8deg);
+    }
+    .hero-scroll {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--outline);
+    }
+    .scroll-line {
+      width: 48px;
+      height: 2px;
+      background: var(--magenta);
+    }
+
+    /* ─── SECTION WRAPPER ─── */
+    .section {
+      padding: 100px 40px;
+      position: relative;
+    }
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 32px; height: 3px;
+      background: var(--magenta);
+    }
+    .section-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--magenta);
+    }
+
+    /* ─── PROPUESTA DE VALOR ─── */
+    #propuesta {
+      background: var(--surf-low);
+      overflow: hidden;
+    }
+    #propuesta::before {
+      content: '';
+      pointer-events: none;
+    }
+    #propuesta::after {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(0,219,233,0.07) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    #propuesta .section-inner { position: relative; z-index: 1; }
+    .propuesta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    @media (max-width: 768px) { .propuesta-grid { grid-template-columns: 1fr; } }
+    .propuesta-left {
+      padding-right: 80px;
+      border-right: 3px solid var(--outline);
+    }
+    .propuesta-right {
+      padding-left: 80px;
+    }
+    .prop-title {
+      font-size: clamp(40px, 5vw, 64px);
+      margin-bottom: 24px;
+      line-height: 0.9;
+    }
+    .prop-desc {
+      color: var(--text-dim);
+      font-size: 17px;
+      line-height: 1.75;
+      margin-bottom: 32px;
+    }
+    .diferencial {
+      display: flex;
+      gap: 16px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--outline);
+      align-items: flex-start;
+    }
+    .diferencial:last-child { border-bottom: none; }
+    .dif-num {
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 900;
+      font-size: 11px;
+      color: var(--magenta);
+      min-width: 24px;
+      padding-top: 2px;
+    }
+    .dif-text {
+      font-size: 15px;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+
+    /* ─── SERVICIOS ─── */
+    #servicios {
+      background: var(--bg);
+      overflow: hidden;
+    }
+    #servicios::before {
+      content: '02';
+      position: absolute;
+      bottom: -60px; left: -20px;
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 900;
+      font-size: 320px;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255,0,122,0.07);
+      pointer-events: none;
+      z-index: 0;
+    }
+    #servicios::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -80px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(0,27,113,0.25) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    #servicios .section-inner { position: relative; z-index: 1; }
+    .servicios-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 64px;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    .servicios-title {
+      font-size: clamp(48px, 6vw, 80px);
+    }
+    .servicios-sub {
+      max-width: 300px;
+      font-size: 14px;
+      color: var(--text-dim);
+      border-left: 3px solid var(--cyan);
+      padding-left: 16px;
+    }
+    .servicios-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    @media (max-width: 900px) { .servicios-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { .servicios-grid { grid-template-columns: 1fr; } }
+    .servicio-card {
+      background: var(--surface);
+      border: 2px solid var(--outline);
+      padding: 32px 28px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+    }
+    .servicio-card:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 6px 6px 0 0 var(--magenta);
+      border-color: var(--magenta);
+      z-index: 2;
+    }
+    .servicio-num {
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 900;
+      font-size: 56px;
+      color: var(--outline);
+      line-height: 1;
+      margin-bottom: 16px;
+      opacity: 0.4;
+    }
+    .servicio-title {
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      line-height: 1.15;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+    .servicio-desc {
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+    .servicio-card:nth-child(3n+1):hover { box-shadow: 6px 6px 0 0 var(--magenta); }
+    .servicio-card:nth-child(3n+2):hover { box-shadow: 6px 6px 0 0 var(--cyan); border-color: var(--cyan); }
+    .servicio-card:nth-child(3n):hover   { box-shadow: 6px 6px 0 0 #b9c3ff; border-color: #b9c3ff; }
+
+    /* ─── METODOLOGÍA ─── */
+    #metodologia { background: #0D2E90; position: relative; overflow: hidden; }
+    #metodologia::before {
+      content: 'PROCESO';
+      position: absolute;
+      bottom: -20px; right: -20px;
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 900;
+      font-size: 180px;
+      color: rgba(255,255,255,0.04);
+      letter-spacing: -0.05em;
+      pointer-events: none;
+      line-height: 1;
+    }
+    .met-title { font-size: clamp(40px, 5vw, 64px); color: #fff; margin-bottom: 64px; }
+    .met-steps {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0;
+      position: relative;
+      z-index: 2;
+    }
+    @media (max-width: 900px) { .met-steps { grid-template-columns: 1fr 1fr; gap: 2px; } }
+    @media (max-width: 480px) { .met-steps { grid-template-columns: 1fr; } }
+    .met-step {
+      padding: 36px 24px;
+      border-right: 2px solid rgba(255,255,255,0.1);
+      position: relative;
+    }
+    .met-step:last-child { border-right: none; }
+    .met-step-num {
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 900;
+      font-size: 48px;
+      color: var(--magenta);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .met-step-fase {
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 800;
+      font-size: 20px;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .met-step-detalle {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+    }
+    .met-step-tag {
+      display: inline-block;
+      margin-top: 16px;
+      background: var(--magenta);
+      color: #fff;
+      padding: 3px 10px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ─── PARA QUIÉN ─── */
+    #audiencia {
+      background: var(--surf-low);
+      overflow: hidden;
+    }
+    @keyframes driftGlow {
+      0%   { transform: translate(0px, 0px);    opacity: 0.9; }
+      33%  { transform: translate(-60px, 50px); opacity: 0.6; }
+      66%  { transform: translate(50px, -40px); opacity: 1;   }
+      100% { transform: translate(0px, 0px);    opacity: 0.9; }
+    }
+    #audiencia::after {
+      content: '';
+      position: absolute;
+      top: 10%; right: 10%;
+      width: 480px; height: 480px;
+      background: radial-gradient(circle, rgba(255,0,122,0.28) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+      animation: driftGlow 7s ease-in-out infinite;
+    }
+    #audiencia .section-inner { position: relative; z-index: 1; }
+    .audiencia-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    @media (max-width: 700px) { .audiencia-grid { grid-template-columns: 1fr; } }
+    .aud-title { font-size: clamp(36px, 5vw, 56px); margin-bottom: 16px; }
+    .aud-sub { font-size: 15px; color: var(--text-dim); max-width: 380px; line-height: 1.7; }
+    .aud-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .aud-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 20px 24px;
+      background: var(--surface);
+      border: 2px solid var(--outline);
+      transition: border-color 0.15s, transform 0.15s;
+    }
+    .aud-item:hover {
+      border-color: var(--cyan);
+      transform: translateX(4px);
+    }
+    .aud-arrow {
+      color: var(--magenta);
+      font-size: 20px;
+      font-weight: 900;
+    }
+    .aud-text { font-size: 15px; color: var(--text-dim); }
+
+    /* ─── LIDERAZGO ─── */
+    #liderazgo {
+      background: var(--bg);
+      overflow: hidden;
+    }
+    @keyframes floatMVB {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-12px); }
+    }
+    @keyframes glowPulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.55; }
+    }
+    #liderazgo::before {
+      content: 'MVB';
+      position: absolute;
+      bottom: -40px; right: -10px;
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 900;
+      font-size: 220px;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(185,195,255,0.18);
+      pointer-events: none;
+      z-index: 0;
+      animation: floatMVB 6s ease-in-out infinite;
+    }
+    #liderazgo::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -80px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(0,27,113,0.45) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+      animation: glowPulse 5s ease-in-out infinite;
+    }
+    #liderazgo .section-inner { position: relative; z-index: 1; }
+    .liderazgo-grid {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    @media (max-width: 700px) { .liderazgo-grid { grid-template-columns: 1fr; gap: 40px; } }
+    @keyframes shadowPulse {
+      0%   { box-shadow: 2px 2px 0 0 var(--magenta); }
+      50%  { box-shadow: 12px 12px 0 0 var(--magenta); }
+      100% { box-shadow: 2px 2px 0 0 var(--magenta); }
+    }
+    .lid-avatar {
+      width: 220px;
+      height: 280px;
+      border: 4px solid #fff;
+      box-shadow: 12px 12px 0 0 var(--magenta);
+      overflow: hidden;
+      position: relative;
+      transform: rotate(-1deg);
+      flex-shrink: 0;
+      animation: shadowPulse 3.5s ease-in-out infinite;
+    }
+    .lid-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      filter: contrast(1.05);
+    }
+    .lid-name {
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 900;
+      font-size: clamp(28px, 4vw, 48px);
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
+    }
+    .lid-rol {
+      color: var(--magenta);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+    .lid-exp {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface);
+      border: 2px solid var(--outline);
+      padding: 8px 16px;
+      margin-bottom: 32px;
+      transform: rotate(0.5deg);
+    }
+    .lid-exp-num {
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 900;
+      font-size: 24px;
+      color: var(--cyan);
+    }
+    .lid-exp-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+    .lid-highlights {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .lid-highlight {
+      display: flex;
+      gap: 12px;
+      font-size: 15px;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+    .lid-highlight::before {
+      content: '—';
+      color: var(--magenta);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ─── CONTACTO ─── */
+    #contacto {
+      background: #C2009A;
+      position: relative;
+      overflow: hidden;
+    }
+    #contacto::before {
+      content: 'HABLEMOS';
+      position: absolute;
+      bottom: -30px; left: -20px;
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 900;
+      font-size: 160px;
+      color: rgba(0,0,0,0.08);
+      letter-spacing: -0.05em;
+      pointer-events: none;
+      line-height: 1;
+    }
+    .contacto-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+    @media (max-width: 700px) { .contacto-inner { grid-template-columns: 1fr; } }
+    .contacto-title {
+      font-size: clamp(48px, 6vw, 80px);
+      color: #fff;
+      line-height: 0.9;
+      margin-bottom: 16px;
+    }
+    .contacto-sub {
+      font-size: 15px;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.7;
+      max-width: 380px;
+    }
+    .contacto-links {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px;
+      background: rgba(255,255,255,0.1);
+      border: 2px solid rgba(255,255,255,0.2);
+      transition: background 0.15s, transform 0.15s;
+      cursor: pointer;
+    }
+    .contact-link:hover {
+      background: rgba(255,255,255,0.18);
+      transform: translateX(4px);
+    }
+    .contact-type {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 2px;
+    }
+    .contact-value {
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: #fff;
+    }
+    .contact-arrow {
+      font-size: 20px;
+      color: rgba(255,255,255,0.55);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #000;
+      padding: 40px;
+      border-top: 4px solid var(--magenta);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-logo {
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 900;
+      font-size: 18px;
+      letter-spacing: -0.03em;
+      color: #fff;
+    }
+    .footer-logo span { color: var(--magenta); }
+    .footer-copy {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+    .footer-eslogan {
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: 14px;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* ─── Scroll reveal ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body class="noise">
+
+  <!-- Cursor -->
+  <div id="cursor"></div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-logo">FENIKA<span>_</span>STUDIO</div>
+      <ul class="nav-links">
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#metodologia">Metodología</a></li>
+        <li><a href="#liderazgo">Founder</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+      <a href="https://wa.me/5491158689025" target="_blank" rel="noopener noreferrer"><button class="nav-cta">Conversemos</button></a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="inicio" class="noise">
+    <div class="hero-bg-glow"></div>
+    <div class="hero-inner">
+      <div class="hero-tag label">Agencia de Comunicación y PR &nbsp;·&nbsp; LATAM</div>
+      <h1 class="display hero-title reveal">
+        FENIKA<br/>
+        <span class="italic">STUDIO<span class="hero-slash">.</span></span>
+      </h1>
+      <p class="hero-eslogan reveal">Ideas bien acompañadas</p>
+      <p class="hero-desc reveal">
+        Servicios de comunicación estratégica y creatividad para marcas,
+        emprendedores y proyectos con propósito.
+      </p>
+      <div class="hero-badges reveal">
+        <span class="badge">Estrategia de PR</span>
+        <span class="badge accent">Co-creación real</span>
+        <span class="badge">Sin fórmulas genéricas</span>
+        <span class="badge">Narrativas de impacto</span>
+      </div>
+      <div class="hero-scroll reveal">
+        <span class="scroll-line"></span>
+        Seguir leyendo
+      </div>
+    </div>
+  </section>
+
+  <!-- PROPUESTA DE VALOR -->
+  <section id="propuesta" class="section">
+    <div class="section-inner">
+      <div class="section-label reveal">
+        <span class="section-number">01 / Propuesta</span>
+      </div>
+      <div class="propuesta-grid">
+        <div class="propuesta-left reveal">
+          <h2 class="display prop-title">POR QUÉ<br/>FENIKA.</h2>
+          <p class="prop-desc">
+            No somos una agencia más. Somos un partner estratégico que trabaja con foco en resultados,
+            narrativas poderosas y comunicación a medida — sin fórmulas genéricas.
+          </p>
+          <a href="#servicios"><button class="nav-cta" style="background:#fff; color:#000; box-shadow:3px 3px 0 0 var(--magenta);">Ver servicios →</button></a>
+        </div>
+        <div class="propuesta-right reveal">
+          <div class="diferencial">
+            <span class="dif-num">—</span>
+            <p class="dif-text">Estrategia con foco en resultados y métricas reales.</p>
+          </div>
+          <div class="diferencial">
+            <span class="dif-num">—</span>
+            <p class="dif-text">Co-creación real como partner estratégico, no solo proveedor.</p>
+          </div>
+          <div class="diferencial">
+            <span class="dif-num">—</span>
+            <p class="dif-text">Sin fórmulas genéricas. Cada proyecto es trabajo a medida.</p>
+          </div>
+          <div class="diferencial">
+            <span class="dif-num">—</span>
+            <p class="dif-text">Narrativas poderosas que generan impacto real y medible.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios" class="section">
+    <div class="section-inner">
+      <div class="section-label reveal">
+        <span class="section-number">02 / Servicios</span>
+      </div>
+      <div class="servicios-header">
+        <h2 class="display servicios-title reveal">LO QUE<br/>HACEMOS.</h2>
+        <p class="servicios-sub reveal">Estrategia a medida. Olvidate de los paquetes estándar — cada propuesta nace de escuchar tu proyecto.</p>
+      </div>
+      <div class="servicios-grid reveal">
+
+        <div class="servicio-card">
+          <div class="servicio-num">01</div>
+          <div class="servicio-title">Estrategia de Comunicaciones y PR</div>
+          <p class="servicio-desc">Hoja de ruta completa: qué contar, a quién y cuándo.</p>
+        </div>
+
+        <div class="servicio-card">
+          <div class="servicio-num">02</div>
+          <div class="servicio-title">Posicionamiento y Narrativa de Marca</div>
+          <p class="servicio-desc">La historia detrás de toda buena estrategia.</p>
+        </div>
+
+        <div class="servicio-card">
+          <div class="servicio-num">03</div>
+          <div class="servicio-title">Gestión de Voceros y Media Training</div>
+          <p class="servicio-desc">Entrenamiento para hablar bien en público.</p>
+        </div>
+
+        <div class="servicio-card">
+          <div class="servicio-num">04</div>
+          <div class="servicio-title">Conceptualización de Campañas</div>
+          <p class="servicio-desc">Ideas que se viven, no solo se ven.</p>
+        </div>
+
+        <div class="servicio-card">
+          <div class="servicio-num">05</div>
+          <div class="servicio-title">Consultoría de Crisis y Reputación</div>
+          <p class="servicio-desc">Estrategia para situaciones de alta velocidad.</p>
+        </div>
+
+        <div class="servicio-card">
+          <div class="servicio-num">06</div>
+          <div class="servicio-title">Estrategia de Contenido y LinkedIn</div>
+          <p class="servicio-desc">Posicionamiento en el canal estratégico del momento.</p>
+        </div>
+
+        <div class="servicio-card" style="grid-column: 1 / -1; max-width: 33.33%;">
+          <div class="servicio-num">07</div>
+          <div class="servicio-title">Experiencias de Marca y Eventos High-Impact</div>
+          <p class="servicio-desc">Producción integral de eventos corporativos, de marca y de networking con enfoque llave en mano. Transformamos tus objetivos en hitos memorables que posicionan la marca en el centro de la conversación.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- METODOLOGÍA -->
+  <section id="metodologia" class="section noise">
+    <div class="section-inner">
+      <div class="section-label reveal">
+        <span class="section-number" style="color:var(--cyan)">03 / Metodología</span>
+      </div>
+      <h2 class="display met-title reveal">CÓMO<br/>TRABAJAMOS.</h2>
+      <div class="met-steps reveal">
+
+        <div class="met-step">
+          <div class="met-step-num">01</div>
+          <div class="met-step-fase">Escucha</div>
+          <p class="met-step-detalle">Entendimiento profundo del proyecto.</p>
+          <span class="met-step-tag">Diagnóstico</span>
+        </div>
+
+        <div class="met-step">
+          <div class="met-step-num">02</div>
+          <div class="met-step-fase">Diagnóstico</div>
+          <p class="met-step-detalle">Alineación de necesidades y expectativas.</p>
+          <span class="met-step-tag">Alineación</span>
+        </div>
+
+        <div class="met-step">
+          <div class="met-step-num">03</div>
+          <div class="met-step-fase">Propuesta</div>
+          <p class="met-step-detalle">Estrategia a medida con acciones, timing y métricas.</p>
+          <span class="met-step-tag">Estrategia</span>
+        </div>
+
+        <div class="met-step">
+          <div class="met-step-num">04</div>
+          <div class="met-step-fase">Ejecución</div>
+          <p class="met-step-detalle">Co-creación con comunicación activa y continua.</p>
+          <span class="met-step-tag">Co-creación</span>
+        </div>
+
+        <div class="met-step">
+          <div class="met-step-num">05</div>
+          <div class="met-step-fase">Medición</div>
+          <p class="met-step-detalle">Resultados en tiempo real y visibilidad de impacto.</p>
+          <span class="met-step-tag">Impacto</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- AUDIENCIA -->
+  <section id="audiencia" class="section">
+    <div class="section-inner">
+      <div class="section-label reveal">
+        <span class="section-number">04 / Para quién</span>
+      </div>
+      <div class="audiencia-grid">
+        <div class="reveal">
+          <h2 class="display aud-title">¿PARA<br/>QUIÉN?</h2>
+          <p class="aud-sub">Trabajamos con quienes tienen algo valioso que decir y necesitan que el mundo lo escuche.</p>
+        </div>
+        <div class="aud-list reveal">
+          <div class="aud-item">
+            <span class="aud-arrow">→</span>
+            <p class="aud-text">Marcas en crecimiento que necesitan reputación y visibilidad.</p>
+          </div>
+          <div class="aud-item">
+            <span class="aud-arrow">→</span>
+            <p class="aud-text">Emprendedores y founders con proyectos con propósito.</p>
+          </div>
+          <div class="aud-item">
+            <span class="aud-arrow">→</span>
+            <p class="aud-text">Proyectos creativos: culturales, editoriales o de entretenimiento.</p>
+          </div>
+          <div class="aud-item">
+            <span class="aud-arrow">→</span>
+            <p class="aud-text">Ejecutivos y voceros que requieren mensajes consistentes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIDERAZGO -->
+  <section id="liderazgo" class="section">
+    <div class="section-inner">
+      <div class="section-label reveal">
+        <span class="section-number">05 / Liderazgo</span>
+      </div>
+      <div class="liderazgo-grid">
+        <div class="lid-avatar reveal">
+          <img src="perfil.jpeg" alt="Micaela Vitale Blisniuk — Founder & Directora de Fenika Studio" />
+        </div>
+        <div class="reveal">
+          <h2 class="lid-name">Micaela Vitale<br/>Blisniuk</h2>
+          <p class="lid-rol">Founder &amp; Directora</p>
+          <div class="lid-exp">
+            <span class="lid-exp-num">8+</span>
+            <span class="lid-exp-label">años de experiencia</span>
+          </div>
+          <div class="lid-highlights">
+            <p class="lid-highlight">Especialista en PR y reputación corporativa.</p>
+            <p class="lid-highlight">Experiencia en mercados LATAM.</p>
+            <p class="lid-highlight">Ganadora de 1 Premio Eikon.</p>
+            <p class="lid-highlight">Ex-líder de estrategias en agencias top y multinacionales.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="section">
+    <div class="contacto-inner">
+      <div class="reveal">
+        <h2 class="display contacto-title">¿HABLAMOS<br/>HOY?</h2>
+        <p class="contacto-sub">Contanos tu proyecto. Agendemos una primera charla para conocernos y explorar el potencial de tu marca.</p>
+      </div>
+      <div class="contacto-links reveal">
+        <a href="mailto:fenikalab@gmail.com">
+          <div class="contact-link">
+            <div>
+              <p class="contact-type">Email</p>
+              <p class="contact-value">fenikalab@gmail.com</p>
+            </div>
+            <span class="contact-arrow">→</span>
+          </div>
+        </a>
+        <a href="https://instagram.com/fenikastudio" target="_blank">
+          <div class="contact-link">
+            <div>
+              <p class="contact-type">Instagram</p>
+              <p class="contact-value">@fenikastudio</p>
+            </div>
+            <span class="contact-arrow">→</span>
+          </div>
+        </a>
+        <a href="tel:+541158689025">
+          <div class="contact-link">
+            <div>
+              <p class="contact-type">Teléfono</p>
+              <p class="contact-value">+54 11 5868 9025</p>
+            </div>
+            <span class="contact-arrow">→</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">FENIKA<span>_</span>STUDIO</div>
+    <span class="footer-eslogan">Ideas bien acompañadas</span>
+    <span class="footer-copy">© 2025 Fenika Studio. Buenos Aires, Argentina.</span>
+  </footer>
+
+  <script>
+    // ─── Custom cursor ───
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+    });
+    document.querySelectorAll('a, button, .servicio-card, .aud-item, .contact-link').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('big'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
+    });
+
+    // ─── Scroll reveal ───
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ─── Nav active link highlight ───
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 100) current = s.id;
+      });
+      navLinks.forEach(a => {
+        a.style.color = a.getAttribute('href') === '#' + current ? 'var(--magenta)' : '';
+      });
+    });
+  </script>
+</body>
+</html>
